@@ -130,7 +130,7 @@ class ServiceProvider extends PragmaRXServiceProvider
 
             $this->registerGlobalEventLogger();
 
-            $this->registerDatatables();
+            //$this->registerDatatables();
 
             $this->registerMessageRepository();
 
@@ -534,9 +534,9 @@ class ServiceProvider extends PragmaRXServiceProvider
 
     protected function registerDatatables()
     {
-        $this->registerServiceProvider('Bllim\Datatables\DatatablesServiceProvider');
+        //$this->registerServiceProvider('Bllim\Datatables\DatatablesServiceProvider');
 
-        $this->registerServiceAlias('Datatable', 'Bllim\Datatables\Facade\Datatables');
+        //$this->registerServiceAlias('Datatable', 'Bllim\Datatables\Facade\Datatables');
     }
 
     /**
