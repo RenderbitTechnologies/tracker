@@ -81,7 +81,11 @@ class ServiceProvider extends PragmaRXServiceProvider
 
         $this->registerErrorHandler();
 
-        //$this->bootTracker();
+
+        if (!$this->getConfig('use_middleware')) {
+            $this->bootTracker();
+        }
+
 
         $this->loadTranslations();
     }

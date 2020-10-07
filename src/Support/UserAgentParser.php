@@ -16,14 +16,11 @@ class UserAgentParser
 
     public $originalUserAgent;
 
-   public function __construct($basePath, $userAgent = null)
-    {
-        $userAgent = $_SERVER['HTTP_USER_AGENT'];
-        if (!$userAgent && isset($_SERVER['HTTP_USER_AGENT'])) {
-            $userAgent = $_SERVER['HTTP_USER_AGENT'];
-        }
 
-        $this->parser = Parser::create()->parse($userAgent);
+    public function __construct($basePath, $userAgent = '')
+    {
+        $this->parser = Parser::create()->parse($this->getUserAgent($userAgent));
+
 
         $this->userAgent = $this->parser->ua;
 
@@ -41,6 +38,19 @@ class UserAgentParser
         return    $this->operatingSystem->major.
                 ($this->operatingSystem->minor !== null ? '.'.$this->operatingSystem->minor : '').
                 ($this->operatingSystem->patch !== null ? '.'.$this->operatingSystem->patch : '');
+    }
+
+    protected function getUserAgent($userAgent)
+    {
+        if (!empty($userAgent)) {
+            return $userAgent;
+        }
+
+        if (isset($_SERVER['HTTP_USER_AGENT']) && !empty($_SERVER['HTTP_USER_AGENT'])) {
+            return $_SERVER['HTTP_USER_AGENT'];
+        }
+
+        return config('tracker.default_user_agent', '');
     }
 
     public function getUserAgentVersion()
